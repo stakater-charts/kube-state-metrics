@@ -1,0 +1,36 @@
+kubeStateMetrics:
+  labels:
+    group: com.stakater.platform
+    provider: stakater
+    version: 1.2.0
+  namespace: dev
+  image:
+    name: k8s.gcr.io/kube-state-metrics
+    tag: v1.2.0
+  addonResizer:
+    name: k8s.gcr.io/addon-resizer
+    tag: 1.7
+    resources:
+      limits:
+        cpu: 100m
+        memory: 30Mi
+      requests:
+        cpu: 100m
+        memory: 30Mi
+    commands:
+      cpu: 100m
+      extraCpu: 1m
+      memory: 100Mi
+      extraMemory: 2Mi
+      threshold: 5
+  deployment:
+    replicas: 1
+    zone: us-west-2a
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+  service:
+    scrape: "true"
+    forceSslRedirect: "true"
+    ingressClass: internal-ingress
+    annotations:
+    expose: "true"
