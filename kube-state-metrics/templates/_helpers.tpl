@@ -23,7 +23,7 @@ provider: {{ .Values.kubeStateMetrics.labels.provider }}
 
 {{- define "labels.stakater" -}}
 {{ template "labels.selector" . }}
-version: {{ .Values.kubeStateMetrics.labels.version | quote }}
+version: "{{ .Values.kubeStateMetrics.labels.version }}"
 {{- end -}}
 
 {{- define "labels.chart" -}}
