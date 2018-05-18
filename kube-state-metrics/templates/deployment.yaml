@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ template "name" . }}
       containers:
       - name: {{ template "name" . }}
-        image: {{ .Values.kubeStateMetrics.image.name }}:{{ .Values.kubeStateMetrics.image.tag }}
+        image: "{{ .Values.kubeStateMetrics.image.name }}:{{ .Values.kubeStateMetrics.image.tag }}"
         ports:
         - name: http-metrics
           containerPort: 8080
@@ -29,13 +29,27 @@ spec:
             port: 8080
           initialDelaySeconds: {{ .Values.kubeStateMetrics.deployment.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.kubeStateMetrics.deployment.timeoutSeconds }}
-        # resources:
-        #   requests:
-        #     memory: 100Mi
-        #     cpu: 100m
-        #   limits:
-        #     memory: 200Mi
-        #     cpu: 200m
+          {{- with .Values.kubeStateMetrics.deployment.resources }}
+          resources:
+            {{- with .requests }}
+            requests:
+              {{- with .memory }}
+              memory: {{ . }}
+              {{- end }}
+              {{- with .cpu }}
+              cpu: {{ . }}
+              {{- end }}
+            {{- end }}
+            {{- with .limits }}
+            limits:
+              {{- with .memory }}
+              memory: {{ . }}
+              {{- end }}
+              {{- with .cpu }}
+              cpu: {{ . }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
       - name: addon-resizer
         image: {{ .Values.kubeStateMetrics.addonResizer.name }}:{{ .Values.kubeStateMetrics.addonResizer.tag }}
         {{- with .Values.kubeStateMetrics.addonResizer.resources }}

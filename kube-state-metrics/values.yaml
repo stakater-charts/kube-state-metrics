@@ -28,6 +28,13 @@ kubeStateMetrics:
     zone: us-west-2a
     initialDelaySeconds: 5
     timeoutSeconds: 5
+    #resources:
+      #requests:
+        #memory: 100Mi
+        #cpu: 100m
+      #limits:
+        #memory: 200Mi
+        #cpu: 200m
   service:
     scrape: "true"
     forceSslRedirect: "true"
