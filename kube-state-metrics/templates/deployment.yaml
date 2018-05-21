@@ -51,7 +51,7 @@ spec:
             {{- end }}
           {{- end }}
       - name: addon-resizer
-        image: {{ .Values.kubeStateMetrics.addonResizer.name }}:{{ .Values.kubeStateMetrics.addonResizer.tag }}
+        image: "{{ .Values.kubeStateMetrics.addonResizer.name }}:{{ .Values.kubeStateMetrics.addonResizer.tag }}"
         {{- with .Values.kubeStateMetrics.addonResizer.resources }}
         resources:
           {{- with .limits }}
