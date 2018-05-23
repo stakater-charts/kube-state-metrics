@@ -29,27 +29,27 @@ spec:
             port: 8080
           initialDelaySeconds: {{ .Values.kubeStateMetrics.deployment.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.kubeStateMetrics.deployment.timeoutSeconds }}
-          {{- with .Values.kubeStateMetrics.deployment.resources }}
-          resources:
-            {{- with .requests }}
-            requests:
-              {{- with .memory }}
-              memory: {{ . }}
-              {{- end }}
-              {{- with .cpu }}
-              cpu: {{ . }}
-              {{- end }}
+        {{- with .Values.kubeStateMetrics.deployment.resources }}
+        resources:
+          {{- with .requests }}
+          requests:
+            {{- with .memory }}
+            memory: {{ . }}
             {{- end }}
-            {{- with .limits }}
-            limits:
-              {{- with .memory }}
-              memory: {{ . }}
-              {{- end }}
-              {{- with .cpu }}
-              cpu: {{ . }}
-              {{- end }}
+            {{- with .cpu }}
+            cpu: {{ . }}
             {{- end }}
           {{- end }}
+          {{- with .limits }}
+          limits:
+            {{- with .memory }}
+            memory: {{ . }}
+            {{- end }}
+            {{- with .cpu }}
+            cpu: {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
       - name: addon-resizer
         image: "{{ .Values.kubeStateMetrics.addonResizer.name }}:{{ .Values.kubeStateMetrics.addonResizer.tag }}"
         {{- with .Values.kubeStateMetrics.addonResizer.resources }}
