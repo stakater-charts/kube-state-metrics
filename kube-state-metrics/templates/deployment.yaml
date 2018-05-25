@@ -4,17 +4,18 @@ kind: Deployment
 metadata:
   name: {{ template "name" . }}
   labels:
+    k8s-app: {{ template "name" . }}
 {{ include "labels.stakater" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
 spec:
   selector:
     matchLabels:
-{{ include "labels.selector" . | indent 6 }}
+      k8s-app: {{ template "name" . }}
   replicas: {{ .Values.kubeStateMetrics.deployment.replicas }}
   template:
     metadata:
       labels:
-{{ include "labels.selector" . | indent 8 }}
+        k8s-app: {{ template "name" . }}
     spec:
       serviceAccountName: {{ template "name" . }}
       containers:
