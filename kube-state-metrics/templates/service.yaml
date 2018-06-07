@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "name" . }}
+  name: {{ template "kube-state-metrics.name" . }}
   labels:
     expose: "{{ .Values.kubeStateMetrics.service.expose }}"
-    k8s-app: {{ template "name" . }}
-{{ include "labels.stakater" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
+    k8s-app: {{ template "kube-state-metrics.name" . }}
+{{ include "kube-state-metrics.labels.stakater" . | indent 4 }}
+{{ include "kube-state-metrics.labels.chart" . | indent 4 }}
   annotations:
     prometheus.io/scrape: '{{ .Values.kubeStateMetrics.service.scrape }}'
     fabric8.io/ingress.annotations: |-
@@ -24,4 +24,4 @@ spec:
     targetPort: http-metrics
     protocol: TCP
   selector:
-    k8s-app: {{ template "name" . }}
+    k8s-app: {{ template "kube-state-metrics.name" . }}
