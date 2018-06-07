@@ -2,23 +2,23 @@ apiVersion: apps/v1beta1
 # Kubernetes versions after 1.9.0 should use apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "name" . }}
+  name: {{ template "kube-state-metrics.name" . }}
   labels:
-{{ include "labels.stakater" . | indent 4 }}
-{{ include "labels.chart" . | indent 4 }}
+{{ include "kube-state-metrics.labels.stakater" . | indent 4 }}
+{{ include "kube-state-metrics.labels.chart" . | indent 4 }}
 spec:
   selector:
     matchLabels:
-      k8s-app: {{ template "name" . }}
+      k8s-app: {{ template "kube-state-metrics.name" . }}
   replicas: {{ .Values.kubeStateMetrics.deployment.replicas }}
   template:
     metadata:
       labels:
-        k8s-app: {{ template "name" . }}
+        k8s-app: {{ template "kube-state-metrics.name" . }}
     spec:
-      serviceAccountName: {{ template "name" . }}
+      serviceAccountName: {{ template "kube-state-metrics.name" . }}
       containers:
-      - name: {{ template "name" . }}
+      - name: {{ template "kube-state-metrics.name" . }}
         image: "{{ .Values.kubeStateMetrics.image.name }}:{{ .Values.kubeStateMetrics.image.tag }}"
         ports:
         - name: http-metrics
@@ -84,12 +84,12 @@ spec:
                 fieldPath: metadata.namespace
         command:
           - /pod_nanny
-          - --container={{ template "name" . }}
+          - --container={{ template "kube-state-metrics.name" . }}
           - --cpu={{ .Values.kubeStateMetrics.addonResizer.commands.cpu }}
           - --extra-cpu={{ .Values.kubeStateMetrics.addonResizer.commands.extraCpu }}
           - --memory={{ .Values.kubeStateMetrics.addonResizer.commands.memory }}
           - --extra-memory={{ .Values.kubeStateMetrics.addonResizer.commands.extraMemory }}
           - --threshold={{ .Values.kubeStateMetrics.addonResizer.commands.threshold }}
-          - --deployment={{ template "name" . }}
+          - --deployment={{ template "kube-state-metrics.name" . }}
       nodeSelector:
         failure-domain.beta.kubernetes.io/zone: {{ .Values.kubeStateMetrics.deployment.zone }}
