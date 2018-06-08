@@ -5,4 +5,5 @@ def dummy = ""
 
 prepareAndUploadCharts {
     charts = [ "kube-state-metrics" ]
+    isPublic = true
 }
