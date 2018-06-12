@@ -3,7 +3,6 @@ kubeStateMetrics:
     group: com.stakater.platform
     provider: stakater
     version: 1.2.0
-  namespace: dev
   image:
     name: k8s.gcr.io/kube-state-metrics
     tag: v1.2.0
