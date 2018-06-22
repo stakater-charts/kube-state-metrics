@@ -91,5 +91,8 @@ spec:
           - --extra-memory={{ .Values.kubeStateMetrics.addonResizer.commands.extraMemory }}
           - --threshold={{ .Values.kubeStateMetrics.addonResizer.commands.threshold }}
           - --deployment={{ template "kube-state-metrics.name" . }}
+      
+      {{- if .Values.kubeStateMetrics.deployment.nodeSelector }}  
       nodeSelector:
-        failure-domain.beta.kubernetes.io/zone: {{ .Values.kubeStateMetrics.deployment.zone }}
+        {{ .Values.kubeStateMetrics.deployment.nodeSelector.key }}: {{ .Values.kubeStateMetrics.deployment.nodeSelector.value }}
+      {{- end }}     

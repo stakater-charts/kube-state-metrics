@@ -24,7 +24,9 @@ kubeStateMetrics:
       threshold: 5
   deployment:
     replicas: 1
-    zone: us-west-2a
+    # nodeSelector:
+    #   key: failure-domain.beta.kubernetes.io/zone
+    #   value: us-west-2a    
     initialDelaySeconds: 5
     timeoutSeconds: 5
     #resources:
