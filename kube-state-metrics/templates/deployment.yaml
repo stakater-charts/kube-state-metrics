@@ -29,6 +29,12 @@ spec:
             port: 8080
           initialDelaySeconds: {{ .Values.kubeStateMetrics.deployment.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.kubeStateMetrics.deployment.timeoutSeconds }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: {{ .Values.kubeStateMetrics.deployment.livenessInitialDelaySeconds }}
+          timeoutSeconds: {{ .Values.kubeStateMetrics.deployment.livenessTimeoutSeconds }}
         {{- with .Values.kubeStateMetrics.deployment.resources }}
         resources:
           {{- with .requests }}
