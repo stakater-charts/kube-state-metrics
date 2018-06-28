@@ -29,6 +29,8 @@ kubeStateMetrics:
     #   value: us-west-2a    
     initialDelaySeconds: 5
     timeoutSeconds: 5
+    livenessInitialDelaySeconds: 20
+    livenessTimeoutSeconds: 20
     #resources:
       #requests:
         #memory: 100Mi
