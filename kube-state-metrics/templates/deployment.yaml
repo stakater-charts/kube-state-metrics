@@ -97,7 +97,7 @@ spec:
           - --extra-memory={{ .Values.kubeStateMetrics.addonResizer.commands.extraMemory }}
           - --threshold={{ .Values.kubeStateMetrics.addonResizer.commands.threshold }}
           - --deployment={{ template "kube-state-metrics.name" . }}
-      
+      securityContext: {}
       {{- if .Values.kubeStateMetrics.deployment.nodeSelector }}  
       nodeSelector:
         {{ .Values.kubeStateMetrics.deployment.nodeSelector.key }}: {{ .Values.kubeStateMetrics.deployment.nodeSelector.value }}
