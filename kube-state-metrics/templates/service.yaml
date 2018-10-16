@@ -7,16 +7,10 @@ metadata:
     k8s-app: {{ template "kube-state-metrics.name" . }}
 {{ include "kube-state-metrics.labels.stakater" . | indent 4 }}
 {{ include "kube-state-metrics.labels.chart" . | indent 4 }}
+{{- if .Values.kubeStateMetrics.service.annotations }}
   annotations:
-    prometheus.io/scrape: '{{ .Values.kubeStateMetrics.service.scrape }}'
-    fabric8.io/ingress.annotations: |-
-      ingress.kubernetes.io/force-ssl-redirect: {{ .Values.kubeStateMetrics.service.forceSslRedirect }}
-      kubernetes.io/ingress.class: {{ .Values.kubeStateMetrics.service.ingressClass }}
-      {{- with .Values.kubeStateMetrics.service.annotations }}
-      {{- range $key, $value := . }}
-      {{ $key }}: {{ $value }}
-      {{- end }}
-      {{- end }}
+{{ toYaml .Values.kubeStateMetrics.service.annotations | indent 4 }}
+{{- end }}
 spec:
   ports:
   - name: http-metrics
