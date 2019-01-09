@@ -8,3 +8,4 @@ Install `kube-state-metrics` chart
 helm install --name kube-state-metrics chartmuseum/kube-state-metrics
 
 asd
+
