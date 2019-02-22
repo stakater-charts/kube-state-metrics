@@ -17,6 +17,10 @@ spec:
         k8s-app: {{ template "kube-state-metrics.name" . }}
     spec:
       serviceAccountName: {{ template "kube-state-metrics.name" . }}
+      {{- if .Values.kubeStateMetrics.tolerations }}
+      tolerations:
+{{ toYaml .Values.kubeStateMetrics.tolerations | indent 8 -}}
+      {{- end }}
       containers:
       - name: {{ template "kube-state-metrics.name" . }}
         image: "{{ .Values.kubeStateMetrics.image.name }}:{{ .Values.kubeStateMetrics.image.tag }}"
